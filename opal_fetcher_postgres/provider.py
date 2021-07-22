@@ -95,7 +95,6 @@ class PostgresFetchProvider(BaseFetchProvider):
             return
         
         logger.debug(f"{self.__class__.__name__} fetching from {self._url}")
-        logger.info(f"{self.__class__.__name__} fetching from {self._url}")
 
         if self._event.config.fetch_one:
             row = await self._connection.fetchrow(self._event.config.query)
@@ -105,15 +104,14 @@ class PostgresFetchProvider(BaseFetchProvider):
 
     async def _process_(self, records: List[asyncpg.Record]):
         self._event: PostgresFetchEvent # type casting
-
-        # transform the asyncpg records to dicts that we can serialize to json
-        rows = [dict(row) for row in records]
-
+        
         # when fetch_one is true, we want to return a dict (and not a list)
         if self._event.config.fetch_one:
-            if rows and len(rows) > 0:
-                return rows[0]
+            if records and len(records) > 0:
+                # we transform the asyncpg record to a dict that we can be later serialized to json
+                return dict(records[0])
             else:
                 return {}
         else:
-            return rows or []
+            # we transform the asyncpg records to a list-of-dicts that we can be later serialized to json
+            return [dict(record) for record in records]
