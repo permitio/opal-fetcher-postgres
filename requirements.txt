@@ -1,0 +1,4 @@
+opal-common
+asyncpg
+pydantic
+tenacity
