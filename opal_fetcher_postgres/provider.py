@@ -1,5 +1,7 @@
 """
 Simple fetch provider for postgres db.
+
+This fetcher also serves as an example how to build custom OPAL Fetch Providers.
 """
 from typing import Optional, List
 
@@ -28,7 +30,16 @@ class PostgresConnectionParams(BaseModel):
 
 class PostgresFetcherConfig(FetcherConfig):
     """
-    Config for PostgresFetchProvider
+    Config for PostgresFetchProvider, instance of `FetcherConfig`.
+    
+    When an OPAL client receives an update, it contains a list of `DataSourceEntry` objects.
+    Each `DataSourceEntry` has a `config` key - which is usually an instance of a subclass of `FetcherConfig`.
+    
+    When writing a custom provider, you must:
+    - derive your class (inherit) from FetcherConfig
+    - override the `fetcher` key with your fetcher class name
+    - (optional): add any fields relevant to a data entry of your fetcher. 
+        - In this example: since we pull data from PostgreSQL - we added a `query` key to hold the SQL query.
     """
     fetcher: str = "PostgresFetchProvider"
     connection_params: Optional[PostgresConnectionParams] = Field(None, description="these params can override or complement parts of the dsn (connection string)")
@@ -37,6 +48,12 @@ class PostgresFetcherConfig(FetcherConfig):
 
 
 class PostgresFetchEvent(FetchEvent):
+    """
+    A FetchEvent shape for the Postgres Fetch Provider.
+
+    When writing a custom provider, you must create a custom FetchEvent subclass, just like this class.
+    In your own class, you must set the value of the `fetcher` key to be your custom provider class name.
+    """
     fetcher: str = "PostgresFetchProvider"
     config: PostgresFetcherConfig = None
 
@@ -47,6 +64,26 @@ class PostgresFetchProvider(BaseFetchProvider):
     
     We fetch data from a postgres database by running a SELECT query, 
     transforming the results to json and dumping the results into the policy store.
+
+    When writing a custom provider, you must:
+    - derive your provider class (inherit) from BaseFetchProvider
+    - create a custom config class, as shown above, that derives from FetcherConfig
+    - create a custom event class, as shown above, that derives from FetchEvent
+
+    At minimum, your custom provider class must implement:
+    - __init__() - and call super().__init__(event)
+    - parse_event() - this method gets a `FetchEvent` object and must transform this object to *your own custom event class*.
+        - Notice that `FetchEvent` is the base class
+        - Notice that `PostgresFetchEvent` is the custom event class
+    - _fetch_() - your custom fetch method, can use the data from your event
+    and config to figure out *what and how to fetch* and actually do it.
+    - _process_() - if your fetched data requires some processing, you should do it here.
+        - The return type from this method must be json-able, i.e: can be serialized to json.
+    
+    You may need to implement:
+    - __aenter__() - if your provider has state that needs to be cleaned up,
+    (i.e: http session, postgres connection, etc) the state may be initialized in this method.
+    - __aexit__() - if you initialized stateful objects (i.e: acquired resources) in your __aenter__, you must release them in __aexit__
     """
     RETRY_CONFIG = {
         'wait': wait.wait_random_exponential(),
