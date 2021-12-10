@@ -5,10 +5,10 @@
 OPAL Fetcher for Postgres
 </h2>
 
-[Check out OPAL main repo here.](https://github.com/authorizon/opal)
+[Check out OPAL main repo here.](https://github.com/permitio/opal)
 
 ### What's in this repo?
-An OPAL [custom fetch provider](https://github.com/authorizon/opal/blob/master/docs/HOWTO/write_your_own_fetch_provider.md) to bring authorization state from [Postgres](https://www.postgresql.org/).
+An OPAL [custom fetch provider](https://github.com/permitio/opal/blob/master/docs/HOWTO/write_your_own_fetch_provider.md) to bring authorization state from [Postgres](https://www.postgresql.org/).
 
 This fetcher is both:
 - **A fully functional fetch-provider for Postgres:** can be used by OPAL to fetch data from Postgres DB.
@@ -87,7 +87,7 @@ Values for this fetcher config:
 * Your `config` must include the `query` key to indicate what query to run against postgres.
 
 ### About OPAL (Open Policy Administration Layer)
-[OPAL](https://github.com/authorizon/opal) is an administration layer for Open Policy Agent (OPA), detecting changes to both policy and policy data in realtime and pushing live updates to your agents.
+[OPAL](https://github.com/permitio/opal) is an administration layer for Open Policy Agent (OPA), detecting changes to both policy and policy data in realtime and pushing live updates to your agents.
 
 OPAL brings open-policy up to the speed needed by live applications. As your application state changes (whether it's via your APIs, DBs, git, S3 or 3rd-party SaaS services), OPAL will make sure your services are always in sync with the authorization data and policy they need (and only those they need).
 

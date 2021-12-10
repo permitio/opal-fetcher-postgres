@@ -13,11 +13,11 @@ setup(
     name='opal-fetcher-postgres',
     version='0.0.1',
     author='Asaf Cohen',
-    author_email="asaf@authorizon.com",
+    author_email="asaf@permit.io",
     description="An OPAL fetch provider to bring authorization state from Postgres DB.",
     long_description_content_type="text/markdown",
     long_description=long_description,
-    url="https://github.com/authorizon/opal-fetcher-postgres",
+    url="https://github.com/permitio/opal-fetcher-postgres",
     packages=find_packages(),
     classifiers=[
         'Operating System :: OS Independent',
