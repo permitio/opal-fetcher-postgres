@@ -30,7 +30,7 @@ The official docker image only contains the built-in fetch providers. You need t
 
 Your `Dockerfile` should look like this:
 ```
-FROM authorizon/opal-client:latest
+FROM permitio/opal-client:latest
 RUN pip install --no-cache-dir --user opal-fetcher-postgres
 ```
 
