@@ -1,17 +1,11 @@
 from setuptools import setup, find_packages
 
-def get_requirements(env=""):
-    if env:
-        env = "-{}".format(env)
-    with open("requirements{}.txt".format(env)) as fp:
-        return [x.strip() for x in fp.read().split("\n") if not x.startswith("#")]
-
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name='opal-fetcher-postgres',
-    version='0.0.1',
+    version='0.0.2',
     author='Asaf Cohen',
     author_email="asaf@permit.io",
     description="An OPAL fetch provider to bring authorization state from Postgres DB.",
