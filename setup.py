@@ -29,5 +29,11 @@ setup(
         'Programming Language :: Python :: 3.9'
     ],
     python_requires='>=3.7',
-    install_requires=get_requirements(),
+    install_requires=[
+        'opal-common>=0.1.11',
+        'asyncpg',
+        'pydantic',
+        'tenacity',
+        'click'
+    ],
 )
