@@ -22,7 +22,7 @@ docker compose up
 ```
 this docker compose configuration already correctly configures OPAL to load the Postgres Fetch Provider, and correctly configures `OPAL_DATA_CONFIG_SOURCES` to include an entry that uses this fetcher.
 
-### ✏️ How to use this fetcher in your OPAL Setup
+### How to use this fetcher in your OPAL Setup
 
 #### 1) Build a custom opal-client `Dockerfile` 
    
@@ -86,18 +86,7 @@ Values for this fetcher config:
 * Your `config` must include the `fetcher` key to indicate to OPAL that you use a custom fetcher.
 * Your `config` must include the `query` key to indicate what query to run against postgres.
 
-### 🚩 Possible User Issues
-While trying to send requests to a Postgres data source, you may encounter that the request fails. This can be caused by the format of the config entry URL for which the standard is: 
-
-`postgresql://<user>:<password>@<host>/<db>`
-
-It might be most common that this request fails due to the password field being incorrectly parsed by the underlying library called `asyncpg`, which is one of the required libraries used within our OPAL custom data fetcher.
-
-In order to solve the issue, you need to change the data source config entry URL to the format shown below:
-
-`postgresql://<host>/<db>?user=<user>&password=<password>`
-
-### 📖 About OPAL (Open Policy Administration Layer)
+### About OPAL (Open Policy Administration Layer)
 [OPAL](https://github.com/permitio/opal) is an administration layer for Open Policy Agent (OPA), detecting changes to both policy and policy data in realtime and pushing live updates to your agents.
 
 OPAL brings open-policy up to the speed needed by live applications. As your application state changes (whether it's via your APIs, DBs, git, S3 or 3rd-party SaaS services), OPAL will make sure your services are always in sync with the authorization data and policy they need (and only those they need).
