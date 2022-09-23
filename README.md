@@ -8,7 +8,7 @@ OPAL Fetcher for Postgres
 [Check out OPAL main repo here.](https://github.com/permitio/opal)
 
 ### What's in this repo?
-An OPAL [custom fetch provider](https://github.com/permitio/opal/blob/master/docs/HOWTO/write_your_own_fetch_provider.md) to bring authorization state from [Postgres](https://www.postgresql.org/).
+An OPAL [custom fetch provider](https://docs.opal.ac/tutorials/write_your_own_fetch_provider) to bring authorization state from [Postgres](https://www.postgresql.org/).
 
 This fetcher is both:
 - **A fully functional fetch-provider for Postgres:** can be used by OPAL to fetch data from Postgres DB.
