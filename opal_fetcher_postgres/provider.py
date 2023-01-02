@@ -45,6 +45,7 @@ class PostgresFetcherConfig(FetcherConfig):
     connection_params: Optional[PostgresConnectionParams] = Field(None, description="these params can override or complement parts of the dsn (connection string)")
     query: str = Field(..., description="the query to run against postgres in order to fetch the data")
     fetch_one: bool = Field(False, description="whether we fetch only one row from the results of the SELECT query")
+    key: Optional[str] = Field(None, description="if provided will store records as an object whose keys are the values in the column specified by this field (e.g. key = 'id')")
 
 
 class PostgresFetchEvent(FetchEvent):
@@ -149,6 +150,9 @@ class PostgresFetchProvider(BaseFetchProvider):
                 return dict(records[0])
             else:
                 return {}
+        elif self._event.config.key != None:
+            keys = [str(record[self._event.config.key]) for record in records]
+            return dict(zip(keys, [dict(record) for record in records]))
         else:
             # we transform the asyncpg records to a list-of-dicts that we can be later serialized to json
             return [dict(record) for record in records]
