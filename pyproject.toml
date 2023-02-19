@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=7.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = 'opal-fetcher-postgres'
+authors = [
+    { name="Asaf Cohen", email="asaf@permit.io" },
+]
+description="An OPAL fetch provider to bring authorization state from Postgres DB."
+readme = "README.md"
+keywords = [ "Open Policy Agent", "OPA", "OPAL", "Open Policy Administration Layer", "Postgres", "Permit.io" ]
+requires-python = ">=3.7"
+license = {text = "Apache-2.0"}
+classifiers = [
+    'Operating System :: OS Independent',
+    'License :: OSI Approved :: Apache Software License',
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+]
+dependencies = [
+    'opal-common>=0.1.11',
+    'asyncpg',
+    "pydantic",
+    'tenacity',
+    'click',
+]
+dynamic = ["version"]
+
+[project.urls]
+"Source" = "https://github.com/permitio/opal-fetcher-postgres"
+"Bug Tracker" = "https://github.com/permitio/opal-fetcher-postgres/issues"
+
+[tool.setuptools_scm]
