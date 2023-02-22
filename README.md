@@ -24,9 +24,9 @@ this docker compose configuration already correctly configures OPAL to load the 
 
 ### ✏️ How to use this fetcher in your OPAL Setup
 
-#### 1) Build a custom opal-client `Dockerfile` 
-   
-The official docker image only contains the built-in fetch providers. You need to create your own `Dockerfile` (that is based on the official docker image), that includes this fetcher's pip package. 
+#### 1) Build a custom opal-client `Dockerfile`
+
+The official docker image only contains the built-in fetch providers. You need to create your own `Dockerfile` (that is based on the official docker image), that includes this fetcher's pip package.
 
 Your `Dockerfile` should look like this:
 ```
@@ -87,7 +87,7 @@ Values for this fetcher config:
 * Your `config` must include the `query` key to indicate what query to run against postgres.
 
 ### 🚩 Possible User Issues
-While trying to send requests to a Postgres data source, you may encounter that the request fails. This can be caused by the format of the config entry URL for which the standard is: 
+While trying to send requests to a Postgres data source, you may encounter that the request fails. This can be caused by the format of the config entry URL for which the standard is:
 
 `postgresql://<user>:<password>@<host>/<db>`
 

@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS city (
   country_id INT NOT NULL,
   PRIMARY KEY (city_id),
   CONSTRAINT fk_country
-      FOREIGN KEY(country_id) 
+      FOREIGN KEY(country_id)
 	  REFERENCES country(country_id)
 );
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS store (
   city_id INT NOT NULL,
   PRIMARY KEY (store_id),
   CONSTRAINT fk_city
-      FOREIGN KEY(city_id) 
+      FOREIGN KEY(city_id)
 	  REFERENCES city(city_id)
 );
 
@@ -55,17 +55,17 @@ CREATE TABLE IF NOT EXISTS sale (
   date_sale TIMESTAMP,
   product_id INT NOT NULL,
   user_id INT NOT NULL,
-  store_id INT NOT NULL, 
+  store_id INT NOT NULL,
   PRIMARY KEY (sale_id),
   CONSTRAINT fk_product
-      FOREIGN KEY(product_id) 
+      FOREIGN KEY(product_id)
 	  REFERENCES product(product_id),
   CONSTRAINT fk_user
-      FOREIGN KEY(user_id) 
+      FOREIGN KEY(user_id)
 	  REFERENCES users(user_id),
   CONSTRAINT fk_store
-      FOREIGN KEY(store_id) 
-	  REFERENCES store(store_id)	  
+      FOREIGN KEY(store_id)
+	  REFERENCES store(store_id)
 );
 
 -- Creation of order_status table
@@ -76,9 +76,9 @@ CREATE TABLE IF NOT EXISTS order_status (
   status_name_id INT NOT NULL,
   PRIMARY KEY (order_status_id),
   CONSTRAINT fk_sale
-      FOREIGN KEY(sale_id) 
+      FOREIGN KEY(sale_id)
 	  REFERENCES sale(sale_id),
   CONSTRAINT fk_status_name
-      FOREIGN KEY(status_name_id) 
-	  REFERENCES status_name(status_name_id)  
+      FOREIGN KEY(status_name_id)
+	  REFERENCES status_name(status_name_id)
 );
