@@ -60,6 +60,10 @@ class PostgresFetcherConfig(FetcherConfig):
         False,
         description="whether we fetch only one row from the results of the SELECT query",
     )
+    fetch_key: str = Field(
+        None,
+        description="column name to use as key to transform the data to Object format rather than list/array",
+    )
 
 
 class PostgresFetchEvent(FetchEvent):
@@ -177,5 +181,10 @@ class PostgresFetchProvider(BaseFetchProvider):
             else:
                 return {}
         else:
-            # we transform the asyncpg records to a list-of-dicts that we can be later serialized to json
-            return [dict(record) for record in records]
+            if self._event.config.fetch_key is None:
+                # we transform the asyncpg records to a list-of-dicts that we can be later serialized to json
+                return [dict(record) for record in records]
+            else:
+                # we transform the asyncpg records to a dict-of-dicts that we can be later serialized to json
+                res_dct = map(lambda i: (records[i][self._event.config.fetch_key], dict(records[i])), range(len(records)-1))
+                return dict(res_dct)

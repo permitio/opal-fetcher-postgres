@@ -51,6 +51,7 @@ services:
       # configures from where the opal client should initially fetch data (when it first goes up, after disconnection, etc).
       # the data sources represents from where the opal clients should get a "complete picture" of the data they need.
       # after the initial sources are fetched, the client will subscribe only to update notifications sent by the server.
+      # Add "fetch_key":"city_id" to get an object with keys of city_id, rather than a list
       - OPAL_DATA_CONFIG_SOURCES={"config":{"entries":[{"url":"postgresql://postgres@example_db:5432/postgres","config":{"fetcher":"PostgresFetchProvider","query":"SELECT * from city;","connection_params":{"password":"postgres"}},"topics":["policy_data"],"dst_path":"cities"}]}}
     ports:
       # exposes opal server on the host machine, you can access the server at: http://localhost:7002
