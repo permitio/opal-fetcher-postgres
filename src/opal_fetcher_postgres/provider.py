@@ -186,5 +186,5 @@ class PostgresFetchProvider(BaseFetchProvider):
                 return [dict(record) for record in records]
             else:
                 # we transform the asyncpg records to a dict-of-dicts that we can be later serialized to json
-                res_dct = map(lambda i: (records[i][self._event.config.fetch_key], dict(records[i])), range(len(records)-1))
+                res_dct = map(lambda i: (records[i][self._event.config.fetch_key], dict(records[i])), range(len(records)))
                 return dict(res_dct)
