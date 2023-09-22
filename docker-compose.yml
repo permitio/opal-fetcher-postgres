@@ -33,7 +33,7 @@ services:
       - ./sql/fill_tables.sql:/docker-entrypoint-initdb.d/fill_tables.sql
   opal_server:
     # by default we run opal-server from latest official image
-    image: authorizon/opal-server:latest
+    image: permitio/opal-server:latest
     environment:
       # the broadcast backbone uri used by opal server workers (see comments above for: broadcast_channel)
       - OPAL_BROADCAST_URI=postgres://postgres:postgres@broadcast_channel:5432/postgres
@@ -68,7 +68,7 @@ services:
       - OPAL_INLINE_OPA_LOG_FORMAT=http
     ports:
       # exposes opal client on the host machine, you can access the client at: http://localhost:7000
-      - "7000:7000"
+      - "7766:7000"
       # exposes the OPA agent (being run by OPAL) on the host machine
       # you can access the OPA api that you know and love at: http://localhost:8181
       # OPA api docs are at: https://www.openpolicyagent.org/docs/latest/rest-api/
