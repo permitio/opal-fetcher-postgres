@@ -5,6 +5,7 @@ This fetcher also serves as an example how to build custom OPAL Fetch Providers.
 """
 from typing import Optional, List
 
+import json
 import asyncpg
 from asyncpg.transaction import Transaction
 from asyncpg.exceptions import DataError
@@ -139,6 +140,15 @@ class PostgresFetchProvider(BaseFetchProvider):
         self._connection: asyncpg.Connection = await asyncpg.connect(
             dsn, **connection_params
         )
+
+        # add support for json decoder
+        await self._connection.set_type_codec(
+            'json',
+            encoder=json.dumps,
+            decoder=json.loads,
+            schema='pg_catalog'
+        )
+        
         # start a readonly transaction (we don't want OPAL client writing data due to security!)
         self._transaction: Transaction = self._connection.transaction(readonly=True)
         await self._transaction.__aenter__()
